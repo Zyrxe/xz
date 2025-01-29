@@ -1,0 +1,236 @@
+
+<head>
+    <title>MR Travels</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="y.css">
+<style>
+{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        html, body {
+            overscroll-behavior: none;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Latar.png') no-repeat top center fixed;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .sidebar {
+            width: 75px;
+            background-color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            position: fixed;
+            left: -75px;
+            top: 50%;
+            transform: translateY(-50%);
+            overflow-y: auto; 
+            max-height: 100%;
+            z-index: 99999;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .sidebar.show {
+            left: 0;
+        }
+
+        .sidebar a {
+            color: #00FFFF;
+            text-decoration: none;
+            margin: 20px 0;
+            font-size: 35px;
+            position: relative;
+        }
+
+        .sidebar a:hover {
+            color: #18bc9c;
+        }
+
+        .content {
+            position: relative;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .content.shifted {
+            transform: translateX(75px);
+        }
+
+        .toggle-btn {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 5;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background-color: #18bc9c;
+        }
+
+        .iframe-container {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            border: 0;
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+
+ h1, .search-container {
+            text-align: center;
+            color: black;
+        }
+        .search-container {
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+        }
+        .search-container input {
+            padding: 20px;
+            width: 90%;
+            height: 60px;
+            border-radius: 30px;
+            border: 3px solid #444;
+            background:#01dfff;
+            box-shadow: 8px 8px 15px #44dede, -8px -8px 15px #58ffff;
+            transition: all 0.3s ease-in-out;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+        .search-container input:focus {
+            box-shadow: inset 8px 8px 15px #ffffff, inset -8px -8px 15px #ffffff, 
+                        8px 8px 15px #44dede, -8px -8px 15px #58ffff;
+            outline: none;
+            border: 3px solid #333;
+        }
+</style>
+</head>
+<body>
+    <div class="background"></div>
+ <div class="container"></div>
+<div class="sidebar" id="sidebar">
+    <a href="#" data-page="TBL/html/home.html">
+        <i class="fas fa-home"></i>
+    </a>
+    <a href="#" data-page="TBL/html/kalender.html">
+        <i class="fas fa-calendar-alt"></i>
+    </a>
+    <a href="#" data-page="table.html">
+        <i class="fas fa-table"></i>
+    </a>
+    <a href="#" data-page="loby.html">
+        <i class="fas fa-shopping-bag"></i>
+    </a>
+    <a href="#" data-page="">
+        <i class="fas fa-cookie"></i>
+    </a>
+    <a href="#" data-page="loby.html">
+        <i class="fas fa-file-code"></i>
+    </a>
+</div>
+
+   <div class="content" id="content">
+    <div class="toggle-btn" id="toggle-btn">
+        <i class="fas fa-yin-yang" style="color: red; font-size: 24px;"></i></i>
+    </div>
+    <iframe id="iframe" class="iframe-container"></iframe> 
+</div>
+  <script src="home.js"></script>
+<script>
+  const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const iframe = document.getElementById('iframe');
+
+    // Toggle sidebar visibility and shift content
+    toggleBtn.addEventListener('click', function (e) {
+        e.stopPropagation(); // Mencegah event bubbling ke document
+        const isSidebarVisible = sidebar.classList.toggle('show');
+        content.classList.toggle('shifted', isSidebarVisible);
+    });
+
+    // Load iframe content
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const page = this.getAttribute('data-page');
+            iframe.src = page;
+        });
+    });
+
+    // Set default iframe
+    iframe.src = "TBL/html/home.html";
+
+    // Close sidebar when clicking anywhere outside of it, including content and iframe
+    document.addEventListener('click', function (e) {
+        // Check if the click was outside the sidebar and toggle button
+        if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+            sidebar.classList.remove('show');
+            content.classList.remove('shifted');
+        }
+    });
+
+    // Prevent sidebar from closing when clicking inside the sidebar
+    sidebar.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // Detect clicks inside the iframe and close sidebar
+    iframe.addEventListener('load', function () {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDocument.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            content.classList.remove('shifted');
+        });
+    });  
+</script>
+</body>
+</html>
