@@ -1,0 +1,132 @@
+<head> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .button {
+            padding: 10px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            
+border-radius: 27px;
+background: linear-gradient(225deg, #00c8cd, #00eef4);
+box-shadow:  -50px 50px 100px #ffffff,
+             50px -50px 100px #ffffff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+color: #FFFFFF;
+        }
+        .button:hover {
+            
+background: linear-gradient(225deg, #00c8cd, #00eef4);
+        }
+        .button:active {
+            background-color: #004494;
+        }
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        .sub-buttons {
+            display: none;
+            flex-direction: row;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .button-group {
+            display: flex;
+            gap: 20px;
+        }
+        .content {
+            display: none;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function toggleButtons(buttonId) {
+            const editButton = document.getElementById('editButton');
+            const viewButton = document.getElementById('viewButton');
+            const editSubButtons = document.getElementById('editSubButtons');
+            const viewSubButtons = document.getElementById('viewSubButtons');
+            
+            if (buttonId === 'editButton') {
+                editButton.style.display = 'none';
+                viewButton.style.display = 'none';
+                editSubButtons.style.display = 'flex';
+                viewSubButtons.style.display = 'none';
+            } else if (buttonId === 'viewButton') {
+                viewButton.style.display = 'none';
+                editButton.style.display = 'none';
+                viewSubButtons.style.display = 'flex';
+                editSubButtons.style.display = 'none';
+            }
+        }
+
+        function showContent(contentUrl) {
+            const buttons = document.querySelectorAll('.button-group, .sub-buttons');
+            buttons.forEach(button => button.style.display = 'none');
+            document.getElementById('contentFrame').src = contentUrl;
+            document.getElementById('contentFrame').style.display = 'block';
+        }
+
+        function goBack() {
+            const editButton = document.getElementById('editButton');
+            const viewButton = document.getElementById('viewButton');
+            const editSubButtons = document.getElementById('editSubButtons');
+            const viewSubButtons = document.getElementById('viewSubButtons');
+            const buttons = document.querySelectorAll('.button-group, .sub-buttons');
+
+            editButton.style.display = 'inline-block';
+            viewButton.style.display = 'inline-block';
+            editSubButtons.style.display = 'none';
+            viewSubButtons.style.display = 'none';
+            buttons.forEach(button => button.style.display = 'none');
+            document.querySelector('.button-group').style.display = 'flex';
+            document.getElementById('contentFrame').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="button-container">
+        <div class="button-group">
+            <button id="viewButton" class="button" onclick="toggleButtons('viewButton')">View</button>
+            <button id="editButton" class="button" onclick="toggleButtons('editButton')">Edit</button>
+        </div>
+        <div>
+            <div id="viewSubButtons" class="sub-buttons">
+                <button class="button" onclick="showContent('coba/admin/admin2.html')">CEO</button>
+                <button class="button" onclick="showContent('memberV2.html')">ADMIN</button>
+                <button class="button" onclick="showContent('memberV3.html')">MART</button>
+            </div>
+            <div id="editSubButtons" class="sub-buttons">
+                <button class="button" onclick="showContent('vip.html')">CIO</button>
+                <button class="button" onclick="showContent('vvip.html')">ADMIN</button>
+                <button class="button" onclick="showContent('vip.html')">MART</button>
+            </div>
+        </div>
+    </div>
+    <button class="button back-button" onclick="goBack()">Kembali</button>
+
+    <iframe id="contentFrame" class="content" style="display:none; width: 100%; height: 100vh; border: none;"></iframe>
+</body>
+</html>
