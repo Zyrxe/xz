@@ -1,7 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/x.css">
+    <link rel="stylesheet" href="x.css">
     <script src=".js"></script>
 </head>
 <body>
@@ -168,6 +168,10 @@ const PlastikDB = {
         return `${day} / ${month} / ${year}`;
     },
 
+    formatStock: function(value) {
+        return value ? value : '•‿•';
+    },
+
     loadTableFromHtml: function() {
         const tbody = document.querySelector("#dataTablePlastik tbody");
         tbody.innerHTML = '';
@@ -198,8 +202,8 @@ const PlastikDB = {
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatCurrency(item.HARGA["250 GRAM"])}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatCurrency(item.HARGA["100 GRAM"])}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatCurrency(item.HARGA["50 GRAM"])}</td>
-                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${item.STOK.GUDANG}</td>
-                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${item.STOK.TOKO}</td>
+                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatStock(item.STOK.GUDANG)}</td>
+                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatStock(item.STOK.TOKO)}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatDate(item.TANGGAL.MASUK)}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatDate(item.TANGGAL.KELUAR)}</td>
                 `;
@@ -283,6 +287,10 @@ const KueDB = {
         return `${day} / ${month} / ${year}`;
     },
 
+    formatStock: function(value) {
+        return value ? value : '•‿•';
+    },
+
     loadTableFromHtml: function() {
         const tbody = document.querySelector("#dataTableKue tbody");
         tbody.innerHTML = '';
@@ -313,8 +321,8 @@ const KueDB = {
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatCurrency(item.HARGA["250 GRAM"])}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatCurrency(item.HARGA["100 GRAM"])}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatCurrency(item.HARGA["50 GRAM"])}</td>
-                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${item.STOK.GUDANG}</td>
-                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${item.STOK.TOKO}</td>
+                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatStock(item.STOK.GUDANG)}</td>
+                    <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatStock(item.STOK.TOKO)}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatDate(item.TANGGAL.EXPAYER)}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatDate(item.TANGGAL.MASUK)}</td>
                     <td data-category="${categoryIndex}" data-item="${itemIndex}">${this.formatDate(item.TANGGAL.KELUAR)}</td>
