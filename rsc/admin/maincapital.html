@@ -2,7 +2,6 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/x.css">
-    <script src=".js"></script>
 </head>
 <body>
     <div class="search-container">
@@ -256,7 +255,7 @@ const PlastikDB = {
         this.defaultData.forEach((category, categoryIndex) => {
             const subTitleRow = document.createElement("tr");
             subTitleRow.classList.add("sub-title");
-            subTitleRow.innerHTML = `<td colspan="14">
+            subTitleRow.innerHTML = `<td colspan="16">
                                         ${category.category}
                                         <button onclick="PlastikDB.addItem(${categoryIndex})">+</button>
                                       </td>`;
@@ -281,7 +280,6 @@ const PlastikDB = {
                     <td contenteditable="true" data-category="${categoryIndex}" data-item="${itemIndex}" inputmode="numeric">${item.HARGA["250 GRAM"]}</td>
                     <td contenteditable="true" data-category="${categoryIndex}" data-item="${itemIndex}" inputmode="numeric">${item.HARGA["100 GRAM"]}</td>
                     <td contenteditable="true" data-category="${categoryIndex}" data-item="${itemIndex}" inputmode="numeric">${item.HARGA["50 GRAM"]}</td>
-
                     <td>
                         <button class="save-button" onclick="PlastikDB.saveItem(${categoryIndex}, ${itemIndex})" style="display:none;">&#9729;</button>
                     </td>
@@ -494,7 +492,7 @@ deleteItemFromDB: function(categoryIndex, itemIndex) {
         this.defaultData.forEach((category, categoryIndex) => {
             const subTitleRow = document.createElement("tr");
             subTitleRow.classList.add("sub-title");
-            subTitleRow.innerHTML = `<td colspan="14">
+            subTitleRow.innerHTML = `<td colspan="16">
                                         ${category.category}
                                         <button onclick="KueDB.addItem(${categoryIndex})">+</button>
                                       </td>`;
@@ -519,7 +517,7 @@ deleteItemFromDB: function(categoryIndex, itemIndex) {
                     <td contenteditable="true" data-category="${categoryIndex}" data-item="${itemIndex}" inputmode="numeric">${item.HARGA["250 GRAM"]}</td>
                     <td contenteditable="true" data-category="${categoryIndex}" data-item="${itemIndex}" inputmode="numeric">${item.HARGA["100 GRAM"]}</td>
                     <td contenteditable="true" data-category="${categoryIndex}" data-item="${itemIndex}" inputmode="numeric">${item.HARGA["50 GRAM"]}</td>
-                    
+                   
                     <td>
                         <button class="save-button" onclick="KueDB.saveItem(${categoryIndex}, ${itemIndex})" style="display:none;">&#9729;</button>
                     </td>
