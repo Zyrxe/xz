@@ -1,7 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/x.css">
+    <link rel="stylesheet" href="x.css">
     <script src=".js"></script>
 </head>
 <body>
@@ -156,7 +156,7 @@ const PlastikDB = {
 
     formatCurrency: function(value) {
         if (!value) return '•‿•';
-        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
+        return 'Rp ' + parseFloat(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     },
 
     formatDate: function(dateString) {
@@ -169,7 +169,7 @@ const PlastikDB = {
     },
 
     formatStock: function(value) {
-        return value ? value : '•‿•';
+        return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '•‿•';
     },
 
     loadTableFromHtml: function() {
@@ -275,7 +275,7 @@ const KueDB = {
 
     formatCurrency: function(value) {
         if (!value) return '•‿•';
-        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
+        return 'Rp ' + parseFloat(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     },
 
     formatDate: function(dateString) {
@@ -288,7 +288,7 @@ const KueDB = {
     },
 
     formatStock: function(value) {
-        return value ? value : '•‿•';
+        return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '•‿•';
     },
 
     loadTableFromHtml: function() {
